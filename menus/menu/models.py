@@ -1,16 +1,60 @@
 from django.db import models
 
 
-class MenuItem(models.Model):
-    name = models.CharField(max_length=100)
-    parent = models.ForeignKey(
-        'self',
-        on_delete=models.CASCADE,
-        null=True,
-        blank=True,
-        related_name='children'
+class MenuCategory(models.Model):
+    name = models.CharField(
+        'Name',
+        max_length=256,
+        blank=False,
+        null=False
     )
-    url = models.CharField(max_length=200, blank=True, null=True)
+    long_name = models.CharField(
+        'Verbose_name',
+        max_length=256,
+        blank=False,
+        null=False
+    )
+
+    class Meta:
+        verbose_name = 'Категория'
+        verbose_name_plural = 'Категории'
+
+    def __str__(self):
+        return self.long_name
+
+
+class Menu(models.Model):
+    name = models.CharField(
+        'Name',
+        max_length=256,
+        blank=False,
+        null=False
+    )
+    category = models.ForeignKey(
+        MenuCategory,
+        on_delete=models.CASCADE,
+        blank=False,
+        null=False,
+        verbose_name='Категория'
+    )
+    link = models.CharField(
+        'Link',
+        max_length=256,
+        blank=False,
+        null=False
+    )
+    parent_item = models.ForeignKey(
+        'self',
+        on_delete=models.SET_DEFAULT,
+        blank=True,
+        null=True,
+        default=0,
+        verbose_name='Parent element'
+    )
+
+    class Meta:
+        verbose_name = 'Элемент меню'
+        verbose_name_plural = 'Элементы меню'
 
     def __str__(self):
         return self.name
