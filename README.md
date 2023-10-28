@@ -16,17 +16,15 @@
 
 При выполнении задания из библиотек следует использовать только Django и стандартную библиотеку Python.
 
-### Настройки
+# Как запускать проект.
+1. ```bash
+   git clone git@github.com:Xopeek/menus_test.git
+   ```
+2. ```
+   python manage.py migrate
+   
+   python manage.py runserver
+   ```
+3. После этого можно заходить в админку и там настроить пункты меню. Чтобы url заработале нужно поправить файл urls.py под свои конечные точки.
 
-.env:
-```dotenv
-DEBUG=true
-SECRET_KEY=
-
-PORT=80
-
-# PostgreSQL
-POSTGRES_USER=menuexample
-POSTGRES_PASSWORD=
-```
-
+### Работу выполнил Семляков Игорь)

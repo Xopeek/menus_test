@@ -16,4 +16,3 @@ urlpatterns = [
     path('blog/', base, {'name': 'Blog'}, name='blog'),
     path('contact/', base, {'name': 'Contact'}, name='contact'),
 ]
-
