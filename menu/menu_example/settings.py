@@ -1,12 +1,12 @@
-from pathlib import Path
+import os
 
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-SECRET_KEY = 'django-insecure-xg*fca=*o3t8cwpd)8c-s4)9((^tp7+$o(vvy1n%0ice3=p58j'
+SECRET_KEY = os.environ.get('SECRET_KEY', '3921hkdsai213hjksdadwq')
 
-DEBUG = True
+DEBUG = True if os.environ.get('DEBUG', '') == 'true' else False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*', ]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -15,7 +15,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'menu'
+    'app'
 ]
 
 MIDDLEWARE = [
@@ -28,12 +28,12 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'menus.urls'
+ROOT_URLCONF = 'menu_example.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['templates', ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -46,12 +46,12 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'menus.wsgi.application'
+WSGI_APPLICATION = 'menu_example.wsgi.application'
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': BASE_DIR + 'db.sqlite3',
     }
 }
 
@@ -76,12 +76,16 @@ TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
+USE_L10N = True
+
 USE_TZ = True
 
-STATIC_URL = 'static/'
-STATIC_ROOT = '/static/'
+STATIC_URL = '/static/'
+MEDIA_URL = '/media/'
 
-MEDIA_URL = 'media/'
-MEDIA_ROOT = '/media/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+]
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+STATIC_ROOT = '/files/static'
+MEDIA_ROOT = '/files/media'

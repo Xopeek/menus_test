@@ -5,4 +5,4 @@ def base(request, name):
     context = {
         'name': name
     }
-    return render(request, 'menu/home.html', context)
+    return render(request, 'app/home.html', context)
